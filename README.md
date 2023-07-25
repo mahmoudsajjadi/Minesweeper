@@ -71,3 +71,12 @@ show_mine method:
 
 uncover_cell method:
 - Currently, this method does nothing. It's intended for future implementation when you would update the button text based on the cell contents, such as showing the bomb count or revealing the mine.
+
+
+
+
+
+## To Do:
+- finish uncover functionality; counting bombs
+- game over functions
+
