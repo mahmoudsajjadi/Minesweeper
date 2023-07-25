@@ -30,7 +30,7 @@ class Cell:
     
     #Return the x and y of the cell
     def locate(self, event):
-        print(self.x, self.y)
+        print("Selected cells coords: ({x}, {y})".format(x=self.x, y=self.y))
 
     #Set the cell as selected
     def set_selected(self, selected=True):
@@ -48,6 +48,6 @@ class Cell:
     def show_mine(self):
         self.cell_btn_object.config(bg="red")
 
-    def uncover_cell(self):
-        return
         # Update the button text based on the cell contents (e.g., bomb count)
+
+

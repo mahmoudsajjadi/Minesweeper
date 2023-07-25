@@ -30,14 +30,20 @@ on_cell_click:
 
 deselect_selected_cell:
 - Sets the previously selected cell to not be selected
-- Updates the text on the button based on whether the cell has been flagged or uncovered
 
 flag_selected_cell:
 - If the cell is selected: sets flagged to true and put ‘F’ on button
 
 uncover_selected_cell
 - Sets uncovered to true
-- If cell is mine: calls show_mine, else ‘U’ is added to button
+- If cell is mine: calls show_mine, else set cell text to the number of surrounding mines
+
+get_surrounding_cells
+- creates a list of the cells around the selected cell in 3x3 grid
+- prints the list of coords to terminal
+
+count_surrounding_mines
+- uses the surrounding cells list to determine how many mines are around the cell
 
 randomize_mines
 - Sets the total number of mines to 20% of the board
@@ -69,14 +75,11 @@ set_flagged method:
 show_mine method:
 - Changes the background color of the cell's graphical button to "red" to indicate that it contains a mine.
 
-uncover_cell method:
-- Currently, this method does nothing. It's intended for future implementation when you would update the button text based on the cell contents, such as showing the bomb count or revealing the mine.
-
 
 
 
 
 ## To Do:
-- finish uncover functionality; counting bombs
+- finish uncover functionality (exception for when the number of surrounding mines is 0)
 - game over functions
 

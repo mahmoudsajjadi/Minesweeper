@@ -35,15 +35,7 @@ class Board:
     def deselect_selected_cell(self):
         if self.selected_cell:
             self.selected_cell.set_selected(False)
-            self.selected_cell.update_btn_text(" ")
-
-            #keeps the flag on the cell
-            if self.selected_cell.is_flagged:
-                self.selected_cell.update_btn_text("F")
-
-            #keeps the uncovered on the cell
-            if self.selected_cell.is_uncovered and not self.selected_cell.is_mine:
-                self.selected_cell.update_btn_text("U")
+            self.selected_cell = None
 
 
     def flag_selected_cell(self):
@@ -58,7 +50,35 @@ class Board:
             if self.selected_cell.is_mine:
                 self.selected_cell.show_mine()
             else:
-                self.selected_cell.update_btn_text("U")
+                #get num of surrounding mines
+                surrounding_mine_count = self.count_surrounding_mines(self.selected_cell)
+                #update the button text to match the num of mines
+                self.selected_cell.update_btn_text(surrounding_mine_count)
+
+    def get_surrounding_cells(self, cell):
+        x, y = cell.x, cell.y
+        surrounding_cells = []
+        #append the surrounding cells (3x3 grid) to the list
+        for i in range(x-1, x+2):
+            for j in range(y-1, y+2):
+                if i >= 0 and i < self.rows and j >= 0 and j < self.cols:
+                    if i != x or j != y:
+                        surrounding_cells.append(self.cells[i][j])
+
+        print(f"Surrounding cells for ({x}, {y}):")
+        print([(cell.x, cell.y) for cell in surrounding_cells])
+
+        return surrounding_cells
+    
+    def count_surrounding_mines(self, cell):
+        #counts the number of mines surrounding the cell
+        surrounding_cells = self.get_surrounding_cells(cell)
+        count = 0
+        for cell in surrounding_cells:
+            if cell.is_mine:
+                count += 1
+        print(f"Found {count} mines")
+        return count
     
     #Randomly places mines on the board
     def randomize_mines(self):
