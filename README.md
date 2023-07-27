@@ -81,9 +81,18 @@ show_mine method:
 - Changes the background color of the cell's graphical button to "red" to indicate that it contains a mine.
 
 
+## UI Features:
+- [ ] mine counter
+- [ ] stopwatch
+- [ ] flags
+- [ ] mines
+- [ ] game over message
+- [ ] flag and uncover buttons
+- [ ] start new game
 
 
+## Functionality To Do:
+- game over functions: all spaces are cleared OR mine is uncovered
 
-## To Do:
-- game over functions
+
 
