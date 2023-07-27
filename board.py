@@ -37,7 +37,6 @@ class Board:
             self.selected_cell.set_selected(False)
             self.selected_cell = None
 
-
     def flag_selected_cell(self):
         if self.selected_cell:
             self.selected_cell.set_flagged()
@@ -46,14 +45,20 @@ class Board:
     def uncover_selected_cell(self):
         if self.selected_cell:
             self.selected_cell.is_uncovered = True
+
             # Update the button text based on the cell contents (e.g., bomb count)
             if self.selected_cell.is_mine:
                 self.selected_cell.show_mine()
+                
             else:
                 #get num of surrounding mines
                 surrounding_mine_count = self.count_surrounding_mines(self.selected_cell)
                 #update the button text to match the num of mines
                 self.selected_cell.update_btn_text(surrounding_mine_count)
+
+                #if there are no surrounding mines, uncover the surrounding cells and display their mine count
+                if surrounding_mine_count == 0:
+                    self.uncover_surrounding_cells(self.selected_cell)
 
     def get_surrounding_cells(self, cell):
         x, y = cell.x, cell.y
@@ -80,6 +85,14 @@ class Board:
         print(f"Found {count} mines")
         return count
     
+    def uncover_surrounding_cells(self, cell):
+        #uncover the surrounding cells
+        surrounding_cells = self.get_surrounding_cells(cell)
+        for cell in surrounding_cells:
+            surrounding_mine_count = self.count_surrounding_mines(cell)
+            cell.update_btn_text(surrounding_mine_count)
+        
+
     #Randomly places mines on the board
     def randomize_mines(self):
         self.total_mines = int(self.rows * self.cols * 0.2) # 20% of the board is mines
