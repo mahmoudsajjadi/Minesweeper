@@ -37,6 +37,8 @@ flag_selected_cell:
 uncover_selected_cell
 - Sets uncovered to true
 - If cell is mine: calls show_mine, else set cell text to the number of surrounding mines
+- Updates the button's text with the number of surrounding mines
+- If surrounding mine count is zero: uncovers the surrounding cells
 
 get_surrounding_cells
 - creates a list of the cells around the selected cell in 3x3 grid
@@ -44,6 +46,9 @@ get_surrounding_cells
 
 count_surrounding_mines
 - uses the surrounding cells list to determine how many mines are around the cell
+
+uncover_surrounding_cells
+- uncovers the cells around the selected cell in 3x3 grid
 
 randomize_mines
 - Sets the total number of mines to 20% of the board
@@ -80,6 +85,5 @@ show_mine method:
 
 
 ## To Do:
-- finish uncover functionality (exception for when the number of surrounding mines is 0)
 - game over functions
 
