@@ -48,6 +48,4 @@ class Cell:
     def show_mine(self):
         self.cell_btn_object.config(bg="red")
 
-        # Update the button text based on the cell contents (e.g., bomb count)
-
 
