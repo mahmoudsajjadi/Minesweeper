@@ -99,6 +99,3 @@ show_mine method:
 - [ ] flag and uncover buttons
 - [ ] start new game
 
-
-## Functionality To Do:
-- game over functions: all spaces are cleared OR mine is uncovered
