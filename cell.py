@@ -48,4 +48,3 @@ class Cell:
     def show_mine(self):
         self.cell_btn_object.config(bg="red")
 
-

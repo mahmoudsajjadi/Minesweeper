@@ -10,6 +10,7 @@ class Board:
         self.selected_cell = None
         self.center_frame = center_frame
         self.total_mines = 0
+        self.is_game_over = False
 
         #populate the board with cells
         for x in range(rows):
@@ -41,7 +42,8 @@ class Board:
         if self.selected_cell:
             self.selected_cell.set_flagged()
             self.selected_cell.update_btn_text("F")
-
+        self.is_game_over = self.check_for_win()
+    
     def uncover_selected_cell(self):
         if self.selected_cell:
             self.selected_cell.is_uncovered = True
@@ -49,6 +51,8 @@ class Board:
             # Update the button text based on the cell contents (e.g., bomb count)
             if self.selected_cell.is_mine:
                 self.selected_cell.show_mine()
+                self.is_game_over = True
+                self.game_over()
                 
             else:
                 #get num of surrounding mines
@@ -58,7 +62,9 @@ class Board:
 
                 #if there are no surrounding mines, uncover the surrounding cells and display their mine count
                 if surrounding_mine_count == 0:
-                    self.uncover_surrounding_cells(self.selected_cell)
+                    self.uncover_surrounding_cells(self.selected_cell)      
+                
+                self.is_game_over = self.check_for_win()
 
     def get_surrounding_cells(self, cell):
         x, y = cell.x, cell.y
@@ -89,13 +95,15 @@ class Board:
         #uncover the surrounding cells
         surrounding_cells = self.get_surrounding_cells(cell)
         for cell in surrounding_cells:
+            cell.is_uncovered = True
             surrounding_mine_count = self.count_surrounding_mines(cell)
             cell.update_btn_text(surrounding_mine_count)
         
-
+    
     #Randomly places mines on the board
     def randomize_mines(self):
         self.total_mines = int(self.rows * self.cols * 0.2) # 20% of the board is mines
+        #self.total_mines = 1
         mines_placed = 0
 
         while mines_placed < self.total_mines:
@@ -110,3 +118,19 @@ class Board:
                 mines_placed += 1
     
         print(f"Placed {mines_placed} mines")
+
+    def check_for_win(self):
+        for row in self.cells:
+            for cell in row:
+                if cell.is_mine and not cell.is_flagged:
+                    print("mines not all flagged")
+                    return False
+                if not cell.is_mine and not cell.is_uncovered:
+                    print("not all cells uncovered")
+                    return False
+        print("You win!")
+        return True   
+    
+    def game_over(self):
+        print("Game over!")
+
