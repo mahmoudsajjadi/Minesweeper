@@ -36,7 +36,10 @@ flag_selected_cell:
 
 uncover_selected_cell
 - Sets uncovered to true
-- If cell is mine: calls show_mine, else set cell text to the number of surrounding mines
+- If cell is mine: calls show_mine and sets game_over to True, else set cell text to the number of surrounding mines
+- Updates the button's text with the number of surrounding mines
+- If surrounding mine count is zero: uncovers the surrounding cells
+- After uncovered, the function checks if the user has won
 
 get_surrounding_cells
 - creates a list of the cells around the selected cell in 3x3 grid
@@ -45,10 +48,21 @@ get_surrounding_cells
 count_surrounding_mines
 - uses the surrounding cells list to determine how many mines are around the cell
 
+uncover_surrounding_cells
+- uncovers the cells around the selected cell in 3x3 grid
+
 randomize_mines
 - Sets the total number of mines to 20% of the board
 - While the mines placed is less that total number of mines: random x and y coordinates are chosen
 - If those coordinates are not already a mine, is_mine is set to true and the mine count is updated
+
+check_for_win
+- checks for each cell to see if all the mines are flagged and all the safe cells are cleared
+- if both conditions are true, the user wins
+
+game_over
+- simply prints game over to terminal when a mine is uncovered
+- can be extended to implement user-facing game over notification
 
 ### cell.py:
 Properties:
@@ -76,10 +90,15 @@ show_mine method:
 - Changes the background color of the cell's graphical button to "red" to indicate that it contains a mine.
 
 
+## UI Features:
+- [ ] mine counter
+- [ ] stopwatch
+- [ ] flags
+- [ ] mines
+- [ ] game over message
+- [ ] flag and uncover buttons
+- [ ] start new game
 
 
-
-## To Do:
-- finish uncover functionality (exception for when the number of surrounding mines is 0)
-- game over functions
-
+## Functionality To Do:
+- game over functions: all spaces are cleared OR mine is uncovered
