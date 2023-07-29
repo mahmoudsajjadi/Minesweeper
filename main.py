@@ -5,6 +5,10 @@ from cell import Cell
 from board import Board
 import time
 
+from tkinter.font import Font
+
+# custom_font = Font(family='Helvetica', size=your_font_size)
+
 root = Tk()
 
 # Window settings
@@ -14,8 +18,8 @@ root.title("Minesweeper")
 root.resizable(False, False)
 
 # Custom Font
-title_font = ("Helvetica", 24, "bold")
-button_font = ("Helvetica", 14)
+title_font = Font(family='Helvetica', size=24, weight='bold')
+button_font = Font(family='Helvetica', size=10)
 
 # Title block
 top_frame = Frame(
@@ -38,10 +42,11 @@ left_frame.place(x=0, y=utils.height_percent(20))
 # Main game place
 center_frame = Frame(
     root,
-    bg='black',
+    bg='#d9d9d9',  # Light gray color
     width=utils.width_percentage(80),
-    height=utils.height_percent(80)
-
+    height=utils.height_percent(80),
+    bd=5,  # Add border
+    relief='sunken'  # Add sunken effect
 )
 center_frame.place(x=utils.width_percentage(20), y=utils.height_percent(20))
 
@@ -73,7 +78,8 @@ def uncover():
 def start_new_game():
     global start_time
     start_time = time.time()
-    board.reset_board()
+    # board.reset_board()
+    board.remove_all_mines()
     board.randomize_mines()  # Randomize mines again
     update_stopwatch()
     
