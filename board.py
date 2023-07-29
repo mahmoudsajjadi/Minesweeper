@@ -106,11 +106,19 @@ class Board:
         
     
     #Randomly places mines on the board
-    def randomize_mines(self):
-        self.total_mines = int(self.rows * self.cols * 0.2) # 20% of the board is mines
-        #self.total_mines = 1
-        mines_placed = 0
+    def randomize_mines(self, difficulty):
+        if difficulty == "easy":
+            self.total_mines = int(self.rows * self.cols * 0.1)  # 10% of the board is mines
+        elif difficulty == "medium":
+            self.total_mines = int(self.rows * self.cols * 0.30)  # 15% of the board is mines
+        elif difficulty == "hard":
+            self.total_mines = int(self.rows * self.cols * 0.50)  # 20% of the board is mines
+        elif difficulty == "very_hard":
+            self.total_mines = int(self.rows * self.cols * 0.75)  # 25% of the board is mines
+        else:
+            raise ValueError("Invalid difficulty level")
 
+        mines_placed = 0
         while mines_placed < self.total_mines:
             x = random.randint(0, self.rows - 1)
             y = random.randint(0, self.cols - 1)
@@ -121,7 +129,7 @@ class Board:
                 cell.is_mine = True
                 cell.update_btn_text("M")
                 mines_placed += 1
-    
+
         print(f"Placed {mines_placed} mines")
 
     def check_for_win(self):

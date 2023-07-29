@@ -51,9 +51,27 @@ center_frame = Frame(
 center_frame.place(x=utils.width_percentage(20), y=utils.height_percent(20))
 
 
+# Function to handle difficulty selection
+def on_difficulty_selected(event):
+    difficulty = selected_difficulty.get()
+    board.remove_all_mines()
+    board.randomize_mines(difficulty)
+    
+    
+# Dropdown menu for difficulty selection
+
+selected_difficulty = StringVar(root, value="easy")
+
+difficulty_options = ["easy", "medium", "hard", "very_hard"]
+difficulty_dropdown = OptionMenu(left_frame, selected_difficulty, *difficulty_options, command=on_difficulty_selected)
+difficulty_dropdown.pack()
+difficulty_dropdown.place(x=40, y=200)
+
+
 #Board
 board = Board(settings.GRID_SIZE, settings.GRID_SIZE, center_frame)
-board.randomize_mines()
+# board.randomize_mines()
+board.randomize_mines("easy")  # Set the difficulty to easy
 
 # Stopwatch
 start_time = time.time()
