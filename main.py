@@ -18,8 +18,10 @@ root.title("Minesweeper")
 root.resizable(False, False)
 
 # Custom Font
-title_font = Font(family='Helvetica', size=24, weight='bold')
-button_font = Font(family='Helvetica', size=10)
+title_font = Font(family='Arial', size=24, weight='bold')
+button_font = Font( family = "Arial", 
+                                 size = 20, 
+                                 weight = "bold")
 
 # Title block
 top_frame = Frame(
@@ -114,6 +116,10 @@ uncoverButton.place(x=40, y=60)
 # Stopwatch Label
 stopwatch_label = Label(top_frame, text="Time: 0 seconds", font=title_font, fg="white", bg="black")
 stopwatch_label.pack(pady=10)
+
+# Mines Label
+mine_count_label = Label(top_frame, text="Mines: {}".format(board.total_mines), font=title_font, fg="white", bg="black")
+mine_count_label.pack(pady=10)
 
 # Start stopwatch
 update_stopwatch()
